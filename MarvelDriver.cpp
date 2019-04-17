@@ -105,32 +105,51 @@ int main(int argc, char *argv[])
                                 cout << D << endl; // option D
                                 cout << "Please Select a Letter Corresponding with the answer" << endl;
                                 getline(cin, playerAnswer);
-                                /* Then we call a menu to ask player to choose which edge to follow
-                                   this means that we will need the player location to find the vertex, and then
-                                   display the number of edges in form of choices for the player to choose from*/
-                                // loop through all verteices
-                                for(unsigned int i = 0; i < graph.listOfVertex.size(); i++)
-                                {
-                                        // loop through all edges
-                                        for(unsigned int j =0; j < graph.listOfVertex[i]->edges.size(); j++)
-                                        {
-                                                // check if it is dead or saved
-                                                if(graph.listOfVertex[i]->edges[j])
-                                                {
-
-                                                }
-                                        }
-                                }
-                                // then give a choice to player for which options are available - switch statement or choice method?
-                                // then move player to that choice
-
-
                                 // If it is correct, then move to node and mark as saved , if incorrect then stay at node and end turn.
-
-                                if(triviaBank.isCorrect(playerAnswer, question))// compare function to check if player got the question Correct
+                                if(triviaBank.isCorrect(playerAnswer, answer))// compare function to check if player got the question Correct
                                 {
                                         //TODO move to node
+                                        /* Then we call a menu to ask player to choose which edge to follow
+                                           this means that we will need the player location to find the vertex, and then
+                                           display the number of edges in form of choices for the player to choose from*/
                                         //TODO choose the next planet to save
+                                        // loop through all verteices
+                                        cout << "This is a list of Planets you can choose to save next." << endl;
+                                        Vertex* playerLoc = graph.playerLocation();
+                                        string selection;
+                                        int count = 1;
+                                        // loop through all edges
+                                        for(unsigned int j =0; j < playerLoc->edges.size(); j++)         // list of edges based on player location
+                                        {
+                                                // check if it is dead or saved
+                                                if(!playerLoc->edges[j]->saved && !playerLoc->edges[j]->dead)
+                                                {
+                                                        // then give a choice list to player for which options are available
+                                                        cout << j << ". "  << (playerLoc->edges[j]->label) << endl;
+                                                        count++;
+                                                }
+                                        }
+                                        cout << "Please choose the next Planet to liberate." << endl;
+                                        // ask for input from user to select where they want to go.
+                                        getline(cin, selection);
+                                        int index = stoi(selection);
+                                        bool flag = true;
+                                        while(flag == true)
+                                        {
+                                                if(index <= count && (index > 48 || index < 48 + count))
+                                                {
+                                                        // then move player to that choice
+                                                        graph.SetplayerLocation(playerLoc->edges[index]); // updates the player location to that new vertex.
+                                                        playerLoc->edges[index]->saved = true; // marks planet as saved.
+                                                        flag = false; // kicks out of loop.
+                                                }
+                                                else
+                                                {
+                                                        cout << "Invalid input, please enter a valid number selection in range." << endl;
+                                                        flag = true; // keeps loop going
+                                                        getline(cin, selection); // ask for new input.
+                                                }
+                                        }
                                 }
                                 else // player got a question wrong and players turn ends
                                 {
