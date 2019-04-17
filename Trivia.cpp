@@ -52,9 +52,10 @@ bool Trivia::isCorrect(string playerInput,string answer) // checks if trivia que
         {
                 // convert player input to lower case.
                 char ansPlayer = tolower(playerInput[0]);
-                if(ansPlayer >= 97 && ansPlayer <= 100)
+                if(playerInput[0] >= 97 && playerInput[0] <= 100)
                 {
-                        if(playerInput == answer)
+                        cout << answer << "@@@" << endl;
+                        if(ansPlayer == answer[0])
                         {
                                 cout << "Congratulations! You are correct!" << endl;
                                 cout << "You have saved the planet and get to move again! " << answer << endl;
