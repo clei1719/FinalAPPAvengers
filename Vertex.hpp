@@ -12,42 +12,20 @@ class Vertex
 private:
 
 public:
+bool saved; // saved planet
 bool visited;
-Vertex *v;
-int weight;
+bool dead; // eaten planet
+int distance; // Temp distance for random purpose
 string label; // for example label a,b,c,d
 int SizeOfEdge = 10; // size number of possible connections for a single vertex
 vector<Vertex*> edges; //Think of this as the number of connections one node can have.
-int count = 0;
-Vertex() // Constructor
-{
+int count = 0; // index
 
-}
-~Vertex()
-{
-
-}
-
-Vertex(int size) // PreConstructor
-{
-
-}
-void setVisited(bool v)
-{
-        visited = v;
-}
-bool getVisited()
-{
-        return visited;
-}
-void printEdges()
-{
-        // prints all edges
-        for(Vertex* i : edges)
-        {
-                cout << i->label << " ";
-        }
-        cout << endl;
-}
+Vertex(); // Constructor
+~Vertex(); // deconstructor
+Vertex(int size); // PreConstructor
+void setVisited(bool v);
+bool getVisited();
+void printEdges();
 };
 #endif
