@@ -37,3 +37,4 @@ void Vertex::printEdges()
         }
         cout << endl;
 }
+
