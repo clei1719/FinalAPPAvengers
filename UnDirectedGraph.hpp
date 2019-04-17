@@ -55,3 +55,4 @@ void setemptyLocation(Vertex* v);
 
 };
 #endif
+
