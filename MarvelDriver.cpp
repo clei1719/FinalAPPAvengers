@@ -134,10 +134,11 @@ int main(int argc, char *argv[])
                                         // loop through all verteices
                                         cout << "This is a list of Planets you can choose to save next." << endl;
                                         Vertex* playerLoc = graph.playerLocation();
+                                        Vertex* thanatosLocation = graph.thanatosLocation();
                                         string selection;
                                         int count = 1;
                                         // loop through all edges
-                                        for(unsigned int j = 0; j < playerLoc->edges.size(); j++)         // list of edges based on player location
+                                        for(unsigned int j = 0; j < playerLoc->edges.size(); j++) // list of edges based on player location
                                         {
                                                 // check if it is dead or saved
                                                 if(!playerLoc->edges[j]->saved && !playerLoc->edges[j]->dead)
@@ -158,6 +159,14 @@ int main(int argc, char *argv[])
                                                 {
                                                         // then move player to that choice
                                                         graph.SetplayerLocation(playerLoc->edges[index - 1]); // updates the player location to that new vertex.
+                                                        //Vertex* playerLoc1 = graph.playerLocation();
+                                                        if(playerLoc == thanatosLocation)
+                                                        {
+                                                                cout << "You have found Thanatos!" << endl;
+                                                                cout << "YOU WIN!!" << endl;
+                                                                //TODO minigame function can go here!
+                                                                return 0;
+                                                        }
                                                         playerLoc->edges[index - 1]->saved = true; // marks planet as saved.
                                                         flag = false; // kicks out of loop.
                                                 }
@@ -173,7 +182,6 @@ int main(int argc, char *argv[])
                                 {
                                         // COMPUTER TURN
                                         isPlayer = false;
-                                        Vertex* playerLoc = graph.playerLocation();
                                         Vertex* emptyLoc = graph.emptyLocation();
                                         cout << "The empty stirs at its location: " << emptyLoc->label << endl;
                                         // function for Empty to select a node to possibly eat;
@@ -185,6 +193,7 @@ int main(int argc, char *argv[])
                                                 if(graph.isPlayeronNode(nodeEmptyisGoingToEat)) // first check if player is on the node that empty wants to eat.
                                                 {
                                                         //TODO game over if empty eats player.
+                                                        cout << "GAME OVER!!" << endl;
                                                         cout << "Your HERO's are defeated by the EMPTY! R.I.P." << endl;
                                                         return 0;
                                                 }
