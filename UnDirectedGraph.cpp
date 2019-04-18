@@ -33,30 +33,27 @@ void UnDirectedGraph::addEdge(string v1, string v2) // makes UnDirected Connecti
         addEdgeHelper(v1,v2);
         addEdgeHelper(v2,v1);
 }
-
+// may have issue of repeating an edge here....
 void UnDirectedGraph::addEdgeHelper(string v1, string v2) // Loop through array, find v1 and v2, then in list of v1, add v2
 {
         Vertex *tempV2=NULL;
         Vertex *tempV1=NULL;
-
-        for(Vertex* i: listOfVertex) // Loop through array
+        for(Vertex* i: listOfVertex)   // Loop through array
         {
-                if(v2 == i->label) // find v2
+                if(v2 == i->label)         // find v2
                 {
-                        tempV2 = i; // passes the location of v1 vertex to temp pointer.
+                        tempV2 = i;         // passes the location of v1 vertex to temp pointer.
                 }
-                if(v1 == i->label) // find v1
+                if(v1 == i->label)         // find v1
                 {
-                        tempV1 = i; // passes the location of v1 to temp pointer.
+                        tempV1 = i;         // passes the location of v1 to temp pointer.
                 }
         }
         // then in list of v1, add v2
         if(tempV1!=NULL && tempV2!=NULL)
         {
-                tempV1->edges.push_back(tempV2); // list of edges takes v1 vertex count
+                tempV1->edges.push_back(tempV2);         // list of edges takes v1 vertex count
         }
-
-
 }
 void UnDirectedGraph::printGraph()
 {
@@ -72,7 +69,7 @@ void UnDirectedGraph::printGraph()
                         // other neighboring node/vertexs, or rather the connections.
                         cout << j->label<< " ";
                 }
-                cout<<endl;
+                cout << endl;
         }
 }
 void UnDirectedGraph::exportGraph() // this will dump the graph for js or css for visualization.
@@ -165,7 +162,7 @@ Vertex* UnDirectedGraph::checkDistance(Vertex* playerStart) // BFT modification 
 
                         if(!current->edges[j]->visited) // if pointer of edge vertex pointer does not match
                         {
-                                cout << current->edges[j]->label << endl; // this accesses the edge pointer of vertex type member function of name
+                                //cout << current->edges[j]->label << endl; // this accesses the edge pointer of vertex type member function of name
                                 current->edges[j]->visited = true; // marks the edge as being visited for that current node/vertex
                                 traversal.push_back(current->edges[j]); // adding all the edges of the current node/vertex
                                 // we need to return the list of vectors 3 nodes deep
@@ -314,9 +311,19 @@ bool UnDirectedGraph::hasBeenSaved(Vertex* v) // if player has visited this node
         }
         return false;
 }
+int UnDirectedGraph::randomNum()
+{
+        srand(time(0));
+        int i = 1;
+        int n = rand() % listOfVertex.size();
+        while(n) // this grab the random index# for the size of the graph.
+        {
+                return n;
+        }
+        return i;
+}
 void UnDirectedGraph::insertPlayer()
 {
-
         int numOfVertex = rand() % listOfVertex.size(); // this grab the random index# for the size of the graph.
         currPlayer.playerLocation = listOfVertex[numOfVertex]; // inserts Player at a random location in graph.
         currPlayer.playerLocation->saved = true; // saves the location player is currently on when starting.
@@ -324,12 +331,14 @@ void UnDirectedGraph::insertPlayer()
 void UnDirectedGraph::insertThanatos()
 {
         //search first for 3 nodes away from player;
-        Vertex* thanatosLocation = checkDistance(currPlayer.playerLocation);
+        Vertex* thanatosLocation = checkDistance(playerLocation());
         Thanatos.playerLocation = thanatosLocation; // inserts Player at a random location in graph.
+        cout << "Thanotos is inserted at: " << Thanatos.playerLocation->label << endl; // temp cout
 }
 void UnDirectedGraph::insertEmpty()
 {
-        Vertex* EmptyLocation = checkDistance(currPlayer.playerLocation);// check 3 modes away from player, if not then reroll;
+        Vertex* EmptyLocation = checkDistance(playerLocation());// check 3 modes away from player, if not then reroll;
         Empty.playerLocation = EmptyLocation; // inserts Player at a random location in graph.
         Empty.playerLocation->dead = true; // saves the location empty is currently on when starting.
+        cout << "Empty is inserted at: " << Empty.playerLocation->label << endl; // temp cout
 }
