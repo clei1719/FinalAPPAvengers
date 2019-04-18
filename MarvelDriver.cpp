@@ -18,6 +18,96 @@ void Intro()
 {
         cout << "WELCOME TO THE AVENGERS TRIVIA GAME!!" << endl;
 }
+
+void AvengersTitleScreen()
+{
+        cout << R"(
+
+
+                         AAA
+                        A:::A
+                       A:::::A
+                      A:::::::A
+                     A:::::::::A           vvvvvvv           vvvvvvv    eeeeeeeeeeee    nnnn  nnnnnnnn       ggggggggg   ggggg    eeeeeeeeeeee    rrrrr   rrrrrrrrr       ssssssssss
+                    A:::::A:::::A           v:::::v         v:::::v   ee::::::::::::ee  n:::nn::::::::nn    g:::::::::ggg::::g  ee::::::::::::ee  r::::rrr:::::::::r    ss::::::::::s
+                   A:::::A A:::::A           v:::::v       v:::::v   e::::::eeeee:::::een::::::::::::::nn  g:::::::::::::::::g e::::::eeeee:::::eer:::::::::::::::::r ss:::::::::::::s
+                  A:::::A   A:::::A           v:::::v     v:::::v   e::::::e     e:::::enn:::::::::::::::ng::::::ggggg::::::gge::::::e     e:::::err::::::rrrrr::::::rs::::::ssss:::::s
+                 A:::::A     A:::::A           v:::::v   v:::::v    e:::::::eeeee::::::e  n:::::nnnn:::::ng:::::g     g:::::g e:::::::eeeee::::::e r:::::r     r:::::r s:::::s  ssssss
+                A:::::AAAAAAAAA:::::A           v:::::v v:::::v     e:::::::::::::::::e   n::::n    n::::ng:::::g     g:::::g e:::::::::::::::::e  r:::::r     rrrrrrr   s::::::s
+               A:::::::::::::::::::::A           v:::::v:::::v      e::::::eeeeeeeeeee    n::::n    n::::ng:::::g     g:::::g e::::::eeeeeeeeeee   r:::::r                  s::::::s
+              A:::::AAAAAAAAAAAAA:::::A           v:::::::::v       e:::::::e             n::::n    n::::ng::::::g    g:::::g e:::::::e            r:::::r            ssssss   s:::::s
+             A:::::A             A:::::A           v:::::::v        e::::::::e            n::::n    n::::ng:::::::ggggg:::::g e::::::::e           r:::::r            s:::::ssss::::::s
+            A:::::A               A:::::A           v:::::v          e::::::::eeeeeeee    n::::n    n::::n g::::::::::::::::g  e::::::::eeeeeeee   r:::::r            s::::::::::::::s
+           A:::::A                 A:::::A           v:::v            ee:::::::::::::e    n::::n    n::::n  gg::::::::::::::g   ee:::::::::::::e   r:::::r             s:::::::::::ss
+          AAAAAAA                   AAAAAAA           vvv               eeeeeeeeeeeeee    nnnnnn    nnnnnn    gggggggg::::::g     eeeeeeeeeeeeee   rrrrrrr              sssssssssss
+                                                                                                                      g:::::g
+                                                                                                          gggggg      g:::::g
+                                                                                                          g:::::gg   gg:::::g
+                                                                                                           g::::::ggg:::::::g
+                                                                                                            gg:::::::::::::g
+                                                                                                              ggg::::::ggg
+                                                                                                                 gggggg
+  )" << '\n';
+        cout << R"(
+
+
+                                                                    MMMMMMMM               MMMMMMMM
+                                                                    M:::::::M             M:::::::M
+                                                                    M::::::::M           M::::::::M
+                                                                    M:::::::::M         M:::::::::M
+                                                                    M::::::::::M       M::::::::::M  aaaaaaaaaaaaa   zzzzzzzzzzzzzzzzz    eeeeeeeeeeee
+                                                                    M:::::::::::M     M:::::::::::M  a::::::::::::a  z:::::::::::::::z  ee::::::::::::ee
+                                                                    M:::::::M::::M   M::::M:::::::M  aaaaaaaaa:::::a z::::::::::::::z  e::::::eeeee:::::ee
+                                                                    M::::::M M::::M M::::M M::::::M           a::::a zzzzzzzz::::::z  e::::::e     e:::::e
+                                                                    M::::::M  M::::M::::M  M::::::M    aaaaaaa:::::a       z::::::z   e:::::::eeeee::::::e
+                                                                    M::::::M   M:::::::M   M::::::M  aa::::::::::::a      z::::::z    e:::::::::::::::::e
+                                                                    M::::::M    M:::::M    M::::::M a::::aaaa::::::a     z::::::z     e::::::eeeeeeeeeee
+                                                                    M::::::M     MMMMM     M::::::Ma::::a    a:::::a    z::::::z      e:::::::e
+                                                                    M::::::M               M::::::Ma::::a    a:::::a   z::::::zzzzzzzze::::::::e
+                                                                    M::::::M               M::::::Ma:::::aaaa::::::a  z::::::::::::::z e::::::::eeeeeeee
+                                                                    M::::::M               M::::::M a::::::::::aa:::az:::::::::::::::z  ee:::::::::::::e
+                                                                    MMMMMMMM               MMMMMMMM  aaaaaaaaaa  aaaazzzzzzzzzzzzzzzzz    eeeeeeeeeeeeee
+
+
+  )" << '\n';
+
+
+
+
+
+        cout << R"(
+
+                                                          TTTTTTTTTTTTTTTTTTTTTTT                      iiii                             iiii
+                                                          T:::::::::::::::::::::T                     i::::i                           i::::i
+                                                          T:::::::::::::::::::::T                      iiii                             iiii
+                                                          T:::::TT:::::::TT:::::T
+                                                          TTTTTT  T:::::T  TTTTTTrrrrr   rrrrrrrrr   iiiiiii vvvvvvv           vvvvvvviiiiiii   aaaaaaaaaaaaa
+                                                                  T:::::T        r::::rrr:::::::::r  i:::::i  v:::::v         v:::::v i:::::i   a::::::::::::a
+                                                                  T:::::T        r:::::::::::::::::r  i::::i   v:::::v       v:::::v   i::::i   aaaaaaaaa:::::a
+                                                                  T:::::T        rr::::::rrrrr::::::r i::::i    v:::::v     v:::::v    i::::i            a::::a
+                                                                  T:::::T         r:::::r     r:::::r i::::i     v:::::v   v:::::v     i::::i     aaaaaaa:::::a
+                                                                  T:::::T         r:::::r     rrrrrrr i::::i      v:::::v v:::::v      i::::i   aa::::::::::::a
+                                                                  T:::::T         r:::::r             i::::i       v:::::v:::::v       i::::i  a::::aaaa::::::a
+                                                                  T:::::T         r:::::r             i::::i        v:::::::::v        i::::i a::::a    a:::::a
+                                                                TT:::::::TT       r:::::r            i::::::i        v:::::::v        i::::::ia::::a    a:::::a
+                                                                T:::::::::T       r:::::r            i::::::i         v:::::v         i::::::ia:::::aaaa::::::a
+                                                                T:::::::::T       r:::::r            i::::::i          v:::v          i::::::i a::::::::::aa:::a
+                                                                TTTTTTTTTTT       rrrrrrr            iiiiiiii           vvv           iiiiiiii  aaaaaaaaaa  aaaa
+
+
+
+
+
+
+
+
+  )" << '\n';
+
+}
+
+
+
+
 void Menu()
 {
         cout << "1. How to Play" << endl;
@@ -71,6 +161,7 @@ void generateRandomGraph(UnDirectedGraph &graph)
 //MAIN GOES HERE:
 int main(int argc, char *argv[])
 {
+        AvengersTitleScreen();
         Intro();
         string choice;
 
