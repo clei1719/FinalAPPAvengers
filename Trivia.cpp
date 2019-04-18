@@ -54,7 +54,6 @@ bool Trivia::isCorrect(string playerInput,string answer) // checks if trivia que
                 char ansPlayer = tolower(playerInput[0]);
                 if(playerInput[0] >= 97 && playerInput[0] <= 100)
                 {
-                        cout << answer << "@@@" << endl;
                         if(ansPlayer == answer[0])
                         {
                                 cout << "Congratulations! You are correct!" << endl;
