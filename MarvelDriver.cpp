@@ -24,6 +24,20 @@ void Menu()
         cout << "2. Start Game" << endl;
         cout << "3. Quit" << endl;
 }
+bool isEdgeThere(UnDirectedGraph g, int v1, int v2)
+{
+        Vertex* ver1=g.findVertex(to_string(v1));
+        Vertex* ver2=g.findVertex(to_string(v2));
+        for(unsigned int i=0; i<ver1->edges.size(); i++)
+        {
+                if(ver1->edges[i]->label==ver2->label)
+                {
+                        return true;
+                }
+        }
+        return false;
+}
+
 void generateRandomGraph(UnDirectedGraph &graph)
 {
         srand(time(0)); //seeds random
@@ -33,19 +47,21 @@ void generateRandomGraph(UnDirectedGraph &graph)
         for(int i = 0; i < numOfVertex; i++) // creates the graph with vertexs
         {
                 string s; // we may need to randomize vertex labels (perhaps a list of planets)
-                graph.addVertex(to_string(i)); // adds vertexs up to the numnber that we want
+                graph.addVertex(to_string(i + 1)); // adds vertexs up to the numnber that we want
         }
+        int v1 = 0; int v2 = 1;
         for(int j = 0; j < numOfVertex*2; j++)
         {
-                int v1, v2;
-                do // while v1 and v2 equal each other re-roll , prevents vertexs from pointing to themselves.
+                v1=rand()%numOfVertex+1;
+                v2=rand()%numOfVertex+1;
+                if(v1 != v2 && !isEdgeThere(graph,v1,v2))
                 {
-                        v1=rand()%numOfVertex+1;
-                        v2=rand()%numOfVertex+1;
+                        graph.addEdge(to_string(v1),to_string(v2));
                 }
-                while(v1 == v2);
-
-                graph.addEdge(to_string(v1),to_string(v2));
+                else
+                {
+                        j--;
+                }
         }
 }
 //FUNCTIONS END
@@ -58,11 +74,12 @@ int main(int argc, char *argv[])
         Intro();
         string choice;
 
-        UnDirectedGraph graph(25);
+        UnDirectedGraph graph(35);
         bool isPlayer;
         Trivia triviaBank;
         triviaBank.addTrivia();
         questions q;
+        //int num = graph.randomNum();
         while(choice != "3")
         {
                 Menu();
@@ -76,13 +93,14 @@ int main(int argc, char *argv[])
                         cout << "Beginning Game!" << endl;
                         cout << "Let the Battle Begin!" << endl;
                         generateRandomGraph(graph); // generates undirected graph for game play.
+                        graph.printGraph();// TODO prints graph in text for now..json export later.
                         //TODO insert player into graph
                         graph.insertPlayer();
+                        cout << "Player should be inserted at: " << graph.listOfVertex[1]->label << endl;
                         //TODO insert thantos into graph 3 nodes away from player location // kill switch
                         graph.insertThanatos();
                         //TODO insert Empty into graph at least two away from player
                         graph.insertEmpty();
-                        graph.printGraph(); // prints graph in text...would be nice to have this do it in js or CSS or something.
                         // Player goes first, computer goes second.
                         isPlayer = true;
                         while(isPlayer == true)
@@ -119,13 +137,13 @@ int main(int argc, char *argv[])
                                         string selection;
                                         int count = 1;
                                         // loop through all edges
-                                        for(unsigned int j =0; j < playerLoc->edges.size(); j++)         // list of edges based on player location
+                                        for(unsigned int j = 0; j < playerLoc->edges.size(); j++)         // list of edges based on player location
                                         {
                                                 // check if it is dead or saved
                                                 if(!playerLoc->edges[j]->saved && !playerLoc->edges[j]->dead)
                                                 {
                                                         // then give a choice list to player for which options are available
-                                                        cout << j << ". "  << (playerLoc->edges[j]->label) << endl;
+                                                        cout << j + 1 << ". "  << (playerLoc->edges[j]->label) << endl;
                                                         count++;
                                                 }
                                         }
@@ -139,8 +157,8 @@ int main(int argc, char *argv[])
                                                 if(index <= count && (index > 48 || index < 48 + count))
                                                 {
                                                         // then move player to that choice
-                                                        graph.SetplayerLocation(playerLoc->edges[index]); // updates the player location to that new vertex.
-                                                        playerLoc->edges[index]->saved = true; // marks planet as saved.
+                                                        graph.SetplayerLocation(playerLoc->edges[index - 1]); // updates the player location to that new vertex.
+                                                        playerLoc->edges[index - 1]->saved = true; // marks planet as saved.
                                                         flag = false; // kicks out of loop.
                                                 }
                                                 else
@@ -157,22 +175,24 @@ int main(int argc, char *argv[])
                                         isPlayer = false;
                                         Vertex* playerLoc = graph.playerLocation();
                                         Vertex* emptyLoc = graph.emptyLocation();
-
+                                        cout << "The empty stirs at its location: " << emptyLoc->label << endl;
                                         // function for Empty to select a node to possibly eat;
                                         Vertex* nodeEmptyisGoingToEat = graph.BFTempty(emptyLoc); // traverses the graph only 1 node away and returns a random node.
+                                        cout << "It looks around, hungry and ravenous. It decides to move to a new planet at: " << nodeEmptyisGoingToEat->label << endl;
                                         while(isPlayer == false)
                                         {
                                                 //computer turn for empty to eat a node with the lowest weight moves there and mark it as dead.
-                                                if(graph.isPlayeronNode(playerLoc)) // first check if player is on the node that empty wants to eat.
+                                                if(graph.isPlayeronNode(nodeEmptyisGoingToEat)) // first check if player is on the node that empty wants to eat.
                                                 {
                                                         //TODO game over if empty eats player.
                                                         cout << "Your HERO's are defeated by the EMPTY! R.I.P." << endl;
-                                                        break;
+                                                        return 0;
                                                 }
                                                 else
                                                 {
                                                         //TODO eats the node - traverses to node to eat.
                                                         graph.setemptyLocation(nodeEmptyisGoingToEat);
+                                                        cout << "The Empty eats the planet: " << nodeEmptyisGoingToEat->label << endl;
                                                         //TODO marks it as dead
                                                         nodeEmptyisGoingToEat->dead = true;
                                                 }
