@@ -52,7 +52,6 @@ Vertex* BFTempty(Vertex* emptyStart);
 Vertex* thanatosLocation();
 Vertex* emptyLocation();
 void setemptyLocation(Vertex* v);
-
+int randomNum();
 };
 #endif
-
