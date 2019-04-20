@@ -9,7 +9,7 @@
 //Load class files
 #include "Vertex.hpp"
 #include "Trivia.hpp"
-#include "DirectedGraph.hpp"
+//#include "DirectedGraph.hpp"
 #include "UnDirectedGraph.hpp"
 
 //************************************************************************************************************
@@ -22,8 +22,6 @@ void Intro()
 void AvengersTitleScreen()
 {
         cout << R"(
-
-
                          AAA
                         A:::A
                        A:::::A
@@ -49,8 +47,6 @@ void AvengersTitleScreen()
                                                                                                                  gggggg
   )" << '\n';
         cout << R"(
-
-
                                                                     MMMMMMMM               MMMMMMMM
                                                                     M:::::::M             M:::::::M
                                                                     M::::::::M           M::::::::M
@@ -67,8 +63,6 @@ void AvengersTitleScreen()
                                                                     M::::::M               M::::::Ma:::::aaaa::::::a  z::::::::::::::z e::::::::eeeeeeee
                                                                     M::::::M               M::::::M a::::::::::aa:::az:::::::::::::::z  ee:::::::::::::e
                                                                     MMMMMMMM               MMMMMMMM  aaaaaaaaaa  aaaazzzzzzzzzzzzzzzzz    eeeeeeeeeeeeee
-
-
   )" << '\n';
 
 
@@ -76,7 +70,6 @@ void AvengersTitleScreen()
 
 
         cout << R"(
-
                                                           TTTTTTTTTTTTTTTTTTTTTTT                      iiii                             iiii
                                                           T:::::::::::::::::::::T                     i::::i                           i::::i
                                                           T:::::::::::::::::::::T                      iiii                             iiii
@@ -93,14 +86,6 @@ void AvengersTitleScreen()
                                                                 T:::::::::T       r:::::r            i::::::i         v:::::v         i::::::ia:::::aaaa::::::a
                                                                 T:::::::::T       r:::::r            i::::::i          v:::v          i::::::i a::::::::::aa:::a
                                                                 TTTTTTTTTTT       rrrrrrr            iiiiiiii           vvv           iiiiiiii  aaaaaaaaaa  aaaa
-
-
-
-
-
-
-
-
   )" << '\n';
 
 }
@@ -114,46 +99,6 @@ void Menu()
         cout << "2. Start Game" << endl;
         cout << "3. Quit" << endl;
 }
-bool isEdgeThere(UnDirectedGraph g, int v1, int v2)
-{
-        Vertex* ver1=g.findVertex(to_string(v1));
-        Vertex* ver2=g.findVertex(to_string(v2));
-        for(unsigned int i=0; i<ver1->edges.size(); i++)
-        {
-                if(ver1->edges[i]->label==ver2->label)
-                {
-                        return true;
-                }
-        }
-        return false;
-}
-
-void generateRandomGraph(UnDirectedGraph &graph)
-{
-        srand(time(0)); //seeds random
-        //DirectedGraph g(50); // creates an object of graph
-        //UnDirectedGraph graph(25);
-        int numOfVertex = rand() % 25 + 10; // random num generator of size of graph.
-        for(int i = 0; i < numOfVertex; i++) // creates the graph with vertexs
-        {
-                string s; // we may need to randomize vertex labels (perhaps a list of planets)
-                graph.addVertex(to_string(i + 1)); // adds vertexs up to the numnber that we want
-        }
-        int v1 = 0; int v2 = 1;
-        for(int j = 0; j < numOfVertex*2; j++)
-        {
-                v1=rand()%numOfVertex+1;
-                v2=rand()%numOfVertex+1;
-                if(v1 != v2 && !isEdgeThere(graph,v1,v2))
-                {
-                        graph.addEdge(to_string(v1),to_string(v2));
-                }
-                else
-                {
-                        j--;
-                }
-        }
-}
 //FUNCTIONS END
 //************************************************************************************************************
 
@@ -164,42 +109,76 @@ int main(int argc, char *argv[])
         AvengersTitleScreen();
         Intro();
         string choice;
+        bool flag = true;
+
 
         UnDirectedGraph graph(35);
         bool isPlayer;
         Trivia triviaBank;
         triviaBank.addTrivia();
         questions q;
+        bool rollAgain = false;
+        bool rollThanatos = false;
         //int num = graph.randomNum();
         while(choice != "3")
         {
                 Menu();
-                getline(cin,choice);
+                cout << endl;
+                cout << "Select an Option: ";
+                getline(cin, choice);
+                // while(flag == true)
+                // {
+                //         char ansPlayer = tolower(choice[0]);
+                //         if((choice[0] >= 1 && choice[0] <= 3) || (ansPlayer >= 1 && ansPlayer <= 3))
+                //         {
+                //                 flag = false;
+                //         }
+                //         else
+                //         {
+                //                 cout << "Invalid Input, please select the the appropriate number choice: ";
+                //                 flag = true;
+                //                 getline(cin,choice);
+                //                 ansPlayer = choice[0];
+                //         }
+                // }
                 switch(stoi(choice))
                 {
                 case 1:
-                        cout << "Learn to play you dum dum" << endl;
+                        cout << "The rules are simple, answer questions to reach Thanatos in the Maze before the Empty eats you" << endl;
+                        cout << "You are allowed to keep answering questions if you get them correct, saving Planets along the way!" << endl;
+                        cout << "Answer wrong, however, and Thanatos's pet gets to eat a Planets, and possibly you!" << endl;
+                        cout << "Your mission is to avoid being eaten by the Empty, save Planets, and reach Thanatos to WIN!" << endl;
+                        cout << "Good Luck!" << endl;
                         break;
                 case 2:
                         cout << "Beginning Game!" << endl;
-                        cout << "Let the Battle Begin!" << endl;
-                        generateRandomGraph(graph); // generates undirected graph for game play.
-                        graph.printGraph();// TODO prints graph in text for now..json export later.
-                        //TODO insert player into graph
-                        graph.insertPlayer();
-                        cout << "Player should be inserted at: " << graph.listOfVertex[1]->label << endl;
-                        //TODO insert thantos into graph 3 nodes away from player location // kill switch
-                        graph.insertThanatos();
-                        //TODO insert Empty into graph at least two away from player
-                        graph.insertEmpty();
+                        cout << "Let the Battle Begin!" << endl << endl;
+
+                        while(rollAgain == false)
+                        {
+                                graph.printGraph();
+                                graph.generateRandomGraph(graph); // generates undirected graph for game play.
+                                //graph.printGraph();// TODO prints graph in text for now..json export later.
+                                //TODO insert player into graph
+                                graph.insertPlayer();
+                                //TODO insert thantos into graph 3 nodes away from player location // kill switch
+                                graph.insertThanatos();
+                                //TODO insert Empty into graph at least two away from player
+                                rollAgain = graph.insertEmpty();
+                        }
+                        cout << "Player should be inserted at: " << graph.playerLocation()->label << endl;
+                        cout << "Thanatos should be inserted at: " << graph.thanatosLocation()->label << endl;
+                        cout << "Empty should be inserted at: " << graph.emptyLocation()->label << endl;
+                        cout << endl;
                         // Player goes first, computer goes second.
                         isPlayer = true;
                         while(isPlayer == true)
                         {
                                 //TODO After player chooses that is when we want to ask a random Trivia question.
-
+                                graph.printGraph();
+                                graph.exportGraph();
                                 q = triviaBank.tBank[rand() % 48]; // grabs the index of the question we want
-
+                                cout << endl;
                                 string playerAnswer;
                                 string question = q.question;
                                 string A = q.arr[0];
@@ -207,12 +186,12 @@ int main(int argc, char *argv[])
                                 string C = q.arr[2];
                                 string D = q.arr[3];
                                 string answer = q.answer; // outputs the question
-                                cout << question << endl; // outputs the question
+                                cout << question << endl << endl; // outputs the question
                                 cout << A << endl; // option A
                                 cout << B << endl; // option B
                                 cout << C << endl; // option C
-                                cout << D << endl; // option D
-                                cout << "Please Select a Letter Corresponding with the answer" << endl;
+                                cout << D << endl << endl; // option D
+                                cout << "Please Select a Letter Corresponding with the answer: ";
                                 getline(cin, playerAnswer);
                                 // If it is correct, then move to node and mark as saved , if incorrect then stay at node and end turn.
                                 if(triviaBank.isCorrect(playerAnswer, answer))// compare function to check if player got the question Correct
@@ -223,7 +202,8 @@ int main(int argc, char *argv[])
                                            display the number of edges in form of choices for the player to choose from*/
                                         //TODO choose the next planet to save
                                         // loop through all verteices
-                                        cout << "This is a list of Planets you can choose to save next." << endl;
+                                        cout << endl;
+                                        cout << "This is a list of Planets you can choose to save next." << endl << endl;
                                         Vertex* playerLoc = graph.playerLocation();
                                         Vertex* thanatosLocation = graph.thanatosLocation();
                                         string selection;
@@ -232,14 +212,15 @@ int main(int argc, char *argv[])
                                         for(unsigned int j = 0; j < playerLoc->edges.size(); j++) // list of edges based on player location
                                         {
                                                 // check if it is dead or saved
-                                                if(!playerLoc->edges[j]->saved && !playerLoc->edges[j]->dead)
+                                                if(playerLoc->edges[j]->saved == false && playerLoc->edges[j]->dead == false)
                                                 {
                                                         // then give a choice list to player for which options are available
-                                                        cout << j + 1 << ". "  << (playerLoc->edges[j]->label) << endl;
+                                                        cout << count << ". "  << (playerLoc->edges[j]->label) << endl;
                                                         count++;
                                                 }
                                         }
-                                        cout << "Please choose the next Planet to liberate." << endl;
+                                        cout << endl;
+                                        cout << "Please choose the next Planet to liberate: ";
                                         // ask for input from user to select where they want to go.
                                         getline(cin, selection);
                                         int index = stoi(selection);
@@ -263,9 +244,10 @@ int main(int argc, char *argv[])
                                                 }
                                                 else
                                                 {
-                                                        cout << "Invalid input, please enter a valid number selection in range." << endl;
+                                                        cout << "Invalid input, please enter a valid number selection in range: ";
                                                         flag = true; // keeps loop going
                                                         getline(cin, selection); // ask for new input.
+                                                        index = stoi(selection);
                                                 }
                                         }
                                 }
@@ -277,7 +259,7 @@ int main(int argc, char *argv[])
                                         cout << "The empty stirs at its location: " << emptyLoc->label << endl;
                                         // function for Empty to select a node to possibly eat;
                                         Vertex* nodeEmptyisGoingToEat = graph.BFTempty(emptyLoc); // traverses the graph only 1 node away and returns a random node.
-                                        cout << "It looks around, hungry and ravenous. It decides to move to a new planet at: " << nodeEmptyisGoingToEat->label << endl;
+                                        cout << "It looks around, hungry and ravenous. It decides to move to a new planet at: " << nodeEmptyisGoingToEat->label << endl << endl;
                                         while(isPlayer == false)
                                         {
                                                 //computer turn for empty to eat a node with the lowest weight moves there and mark it as dead.
@@ -290,11 +272,21 @@ int main(int argc, char *argv[])
                                                 }
                                                 else
                                                 {
+                                                        for(unsigned int j = 0; j < emptyLoc->edges.size(); j++) // list of edges based on player location
+                                                        {
+                                                                // check if it is dead or saved
+                                                                if(emptyLoc->edges[j]->saved == false && emptyLoc->edges[j]->dead == false)
+                                                                {
+                                                                        // then give a choice list to player for which options are available
+                                                                        graph.setemptyLocation(nodeEmptyisGoingToEat);
+                                                                        cout << "The Empty EATS THE PLANET AT: " << nodeEmptyisGoingToEat->label << "!!!" << endl;
+                                                                        cout << "The screams of billions dying sends a cold chill down your spine! Hurry Hero! Save US!" << endl << endl;
+                                                                        //TODO marks it as dead
+                                                                        nodeEmptyisGoingToEat->dead = true;
+                                                                        break;
+                                                                }
+                                                        }
                                                         //TODO eats the node - traverses to node to eat.
-                                                        graph.setemptyLocation(nodeEmptyisGoingToEat);
-                                                        cout << "The Empty eats the planet: " << nodeEmptyisGoingToEat->label << endl;
-                                                        //TODO marks it as dead
-                                                        nodeEmptyisGoingToEat->dead = true;
                                                 }
                                                 // end computer turn
                                                 isPlayer = true;
@@ -313,4 +305,3 @@ int main(int argc, char *argv[])
         }
         return 0;
 }
-//************************************************************************************************************
