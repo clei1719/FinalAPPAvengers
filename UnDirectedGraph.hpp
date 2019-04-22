@@ -32,6 +32,7 @@ void addVertex(string label); // creating a new node/vertex and add it to the gr
 void addEdge(string v1, string v2); // makes UnDirected Connections
 void addEdgeHelper(string v1, string v2); // Loop through array, find v1 and v2, then in list of v1, add v2
 void printGraph();
+void deleteGraph();
 void exportGraph(); // this will dump the graph for js or css for visualization.
 void displayEdges();
 void printBFT();
@@ -41,8 +42,8 @@ void DFT_traversal(Vertex *v);
 Vertex* findVertex(std::string name);
 void setAllVerticesUnvisited();
 void insertPlayer();
-void insertThanatos();
-void insertEmpty();
+bool insertThanatos();
+bool insertEmpty();
 Vertex* playerLocation();
 void SetplayerLocation(Vertex* v);
 Vertex* checkDistance(Vertex* playerStart);
@@ -53,5 +54,6 @@ Vertex* thanatosLocation();
 Vertex* emptyLocation();
 void setemptyLocation(Vertex* v);
 int randomNum();
+void generateRandomGraph(UnDirectedGraph &graph);
 };
 #endif
